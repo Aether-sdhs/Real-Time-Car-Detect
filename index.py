@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 import requests
 import urllib.request
 import numpy as np
 from dotenv import load_dotenv
 import os
 import json
-from pick import pick
+import questionary
 
 def get_cctv_url(lat, lng):
     # .env 파일을 로드합니다.
@@ -55,10 +54,10 @@ with open('demo_cctv_list.json', 'r', encoding='utf-8') as file:
 # 선택된 CCTV 데이터를 저장할 리스트를 초기화합니다.
 selected_cctv_data = []
 
-# pick를 사용하여 JSON 파일에서 위치를 선택합니다.
+# questionary를 사용하여 위치를 선택합니다.
 title = '위치를 선택하세요:'
-options = [loc['name']for loc in cctv_locations]
-selected_option, _ = pick(options, title, indicator="=>")
+options = [loc['name'] for loc in cctv_locations]
+selected_option = questionary.select(title, choices=options).ask()
 
 # 선택한 위치를 JSON 데이터에서 찾습니다.
 selected_location = cctv_locations[options.index(selected_option)]
