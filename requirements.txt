@@ -1,0 +1,14 @@
+certifi==2023.7.22
+charset-normalizer==3.3.2
+idna==3.4
+keyboard==0.13.5
+numpy==1.26.1
+pick==2.2.0
+prompt-toolkit==3.0.36
+python-dotenv==1.0.0
+questionary==2.0.1
+requests==2.31.0
+simple-term-menu==1.6.1
+urllib3==2.0.7
+wcwidth==0.2.9
+windows-curses==2.3.2
