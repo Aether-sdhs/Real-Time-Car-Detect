@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 import json
 import questionary
+import moviepy.editor as mp
 
 def get_cctv_url(lat, lng):
     # .env 파일을 로드합니다.
@@ -67,7 +68,12 @@ selected_cctv_data.append(get_cctv_url(selected_location['latitude'], selected_l
 
 # 선택한 위치의 CCTV 비디오를 다운로드합니다.
 for cctv_data in selected_cctv_data:
+    
+    trimedVideoFileName = str((cctv_data['cctvname'] + ".mp4").replace(' ',''))
     print('CCTV명:', cctv_data['cctvname'])
     print('CCTV 영상 URL:', cctv_data['cctvurl'])
-    urllib.request.urlretrieve(cctv_data['cctvurl'], str(cctv_data['cctvname'] + ".mp4"))
-    print("저장됨: ", str(cctv_data['cctvname'] + ".mp4"))
+    urllib.request.urlretrieve(cctv_data['cctvurl'], trimedVideoFileName)
+    print("저장됨: ", trimedVideoFileName)
+    clip = mp.VideoFileClip(trimedVideoFileName)
+    clip_resized = clip.resize((1280,720))
+    clip_resized.write_videofile("resized"+trimedVideoFileName)
